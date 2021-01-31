@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:katalog/index.dart';
 
 class MenuDrawer extends StatefulWidget {
@@ -9,14 +8,6 @@ class MenuDrawer extends StatefulWidget {
 
 class _MenuDrawerState extends State<MenuDrawer> {
   Size get s => MediaQuery.of(context).size;
-
-  Future launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
 
   Widget menuButton(Widget page, String title) {
     return FlatButton(
@@ -37,25 +28,6 @@ class _MenuDrawerState extends State<MenuDrawer> {
         ),
       ),
       splashColor: catLightPink,
-    );
-  }
-
-  final Uri _emailLaunchUri = Uri(
-      scheme: 'mailto',
-      path: 'srdr_plt@hotmail.com',
-      queryParameters: {'subject': 'Katalog!'});
-
-  Widget socialButton(String image, String url) {
-    return FlatButton(
-      onPressed: () async {
-        await launchURL(url);
-      },
-      child: Container(
-          width: 32,
-          height: 32,
-          child: Image.asset("assets/images/$image.png")),
-      shape: CircleBorder(),
-      padding: EdgeInsets.all(12),
     );
   }
 

@@ -14,22 +14,6 @@ class _ContactPageState extends State<ContactPage> {
   bool loading;
   Size get s => MediaQuery.of(context).size;
 
-  Future launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  Future<void> _makePhoneCall(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   Widget contactButton(String img, String url, String title) {
     return FlatButton(
       onPressed: () async {
@@ -86,80 +70,80 @@ class _ContactPageState extends State<ContactPage> {
         padding: EdgeInsets.all(16),
         child: loading
             ? Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(mainDark),
-            ))
+                child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(mainDark),
+              ))
             : setting == null
-            ? Center(child: Text("Veri Yok"))
-            : Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SizedBox(height: s.height * 0.1),
-            FlatButton(
-              onPressed: () async {
-                await _makePhoneCall('tel:' + setting.phone);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    child: Image.asset(
-                      "assets/images/phones.png",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(width: 24),
-                  Container(
-                    width: 130,
-                    child: Text(
-                      "Telefon",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: "Capriola",
+                ? Center(child: Text("Veri Yok"))
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(height: s.height * 0.1),
+                      FlatButton(
+                        onPressed: () async {
+                          await makePhoneCall('tel:' + setting.phone);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 36,
+                              height: 36,
+                              child: Image.asset(
+                                "assets/images/phones.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            SizedBox(width: 24),
+                            Container(
+                              width: 130,
+                              child: Text(
+                                "Telefon",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: "Capriola",
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            contactButton(
-                "facebook.png", setting.facebook, "Facebook"),
-            contactButton(
-                "instagram.png", setting.instagram, "Instagram"),
-            FlatButton(
-              onPressed: () async {
-                await launch(_emailLaunchUri.toString());
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    child: Image.asset(
-                      "assets/images/email.png",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  SizedBox(width: 24),
-                  Container(
-                    width: 130,
-                    child: Text(
-                      "E-Posta",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: "Capriola",
+                      contactButton(
+                          "facebook.png", setting.facebook, "Facebook"),
+                      contactButton(
+                          "instagram.png", setting.instagram, "Instagram"),
+                      FlatButton(
+                        onPressed: () async {
+                          await launch(_emailLaunchUri.toString());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 36,
+                              height: 36,
+                              child: Image.asset(
+                                "assets/images/email.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            SizedBox(width: 24),
+                            Container(
+                              width: 130,
+                              child: Text(
+                                "E-Posta",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: "Capriola",
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                      SizedBox(height: s.height * 0.1),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            SizedBox(height: s.height * 0.1),
-          ],
-        ),
       ),
     );
   }

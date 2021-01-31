@@ -43,3 +43,19 @@ void launchWhatsapp({@required number, @required message}) async {
 
   await canLaunch(url) ? launch(url) : print('Whatsapp can\'t open');
 }
+
+Future launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+
+Future<void> makePhoneCall(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
