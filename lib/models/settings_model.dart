@@ -22,6 +22,8 @@ class SettingsModel {
     this.facebook,
     this.instagram,
     this.email,
+    this.services,
+    this.about,
   });
 
   String id;
@@ -35,32 +37,38 @@ class SettingsModel {
   String facebook;
   String instagram;
   String email;
+  String services;
+  String about;
 
   factory SettingsModel.fromJson(Map<String, dynamic> json) => SettingsModel(
-    id: json["id"],
-    siteUrl: json["site_url"],
-    siteHeader: json["site_header"],
-    siteDesc: json["site_desc"],
-    siteKeyw: json["site_keyw"],
-    siteTheme: json["site_theme"],
-    siteStatus: json["site_status"],
-    phone: json["phone"],
-    facebook: json["facebook"],
-    instagram: json["instagram"],
-    email: json["email"],
-  );
+        id: json["id"],
+        siteUrl: json["site_url"],
+        siteHeader: json["site_header"],
+        siteDesc: json["site_desc"],
+        siteKeyw: json["site_keyw"],
+        siteTheme: json["site_theme"],
+        siteStatus: json["site_status"],
+        phone: json["phone"],
+        facebook: json["facebook"],
+        instagram: json["instagram"],
+        email: json["email"],
+        services: json["services"],
+        about: json["about"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "site_url": siteUrl,
-    "site_header": siteHeader,
-    "site_desc": siteDesc,
-    "site_keyw": siteKeyw,
-    "site_theme": siteTheme,
-    "site_status": siteStatus,
-    "phone": phone,
-    "facebook": facebook,
-    "instagram": instagram,
-    "email": email,
-  };
+        "id": id,
+        "site_url": siteUrl,
+        "site_header": siteHeader,
+        "site_desc": siteDesc,
+        "site_keyw": siteKeyw,
+        "site_theme": siteTheme,
+        "site_status": siteStatus,
+        "phone": phone,
+        "facebook": facebook,
+        "instagram": instagram,
+        "email": email,
+        "services": services,
+        "about": about,
+      };
 }
