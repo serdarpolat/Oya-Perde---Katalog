@@ -41,7 +41,7 @@ Widget get appBar => _appBar;
 void launchWhatsapp({@required number, @required message}) async {
   String url = "whatsapp://send?phone=$number&text=$message";
 
-  await canLaunch(url) ? launch(url) : print('Whatsapp can\'t open');
+  await canLaunch(url) ? launch(url) : Text("Error");
 }
 
 Future launchURL(String url) async {
