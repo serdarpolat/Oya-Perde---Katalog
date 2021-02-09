@@ -10,8 +10,7 @@ class _MenuDrawerState extends State<MenuDrawer> {
   Size get s => MediaQuery.of(context).size;
 
   Widget menuButton(Widget page, String title) {
-    return FlatButton(
-      padding: EdgeInsets.symmetric(vertical: 16),
+    return TextButton(
       onPressed: () {
         Navigator.pop(context);
         Navigator.of(context).push(
@@ -20,14 +19,17 @@ class _MenuDrawerState extends State<MenuDrawer> {
           ),
         );
       },
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
         ),
       ),
-      splashColor: catLightPink,
+      //splashColor: catLightPink,
     );
   }
 

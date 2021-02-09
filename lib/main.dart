@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:katalog/index.dart';
+import 'package:lottie/lottie.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -65,15 +66,32 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     startTime();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        color: mainDark,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Image.asset(
-          "assets/images/screen.png",
-          fit: BoxFit.cover,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 120,
+              height: 120,
+              child: Image.asset(
+                "assets/images/icon.png",
+                fit: BoxFit.cover,
+              ),
+            ),
+            Container(
+              child: Lottie.asset('assets/lottie/animation.json'),
+              width: 120,
+              height: 120,
+            ),
+          ],
         ),
       ),
     );

@@ -19,6 +19,7 @@ dependencies:
   cached_network_image: ^2.5.0
   carousel_slider: ^2.3.1
   url_launcher: ^5.7.10
+  lottie: ^0.7.0+1
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +30,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/lottie/
 
   fonts:
     - family: Capriola

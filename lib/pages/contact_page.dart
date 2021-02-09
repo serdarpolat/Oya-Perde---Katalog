@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:katalog/index.dart';
+import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _ContactPageState extends State<ContactPage> {
   Size get s => MediaQuery.of(context).size;
 
   Widget contactButton(String img, String url, String title) {
-    return FlatButton(
+    return TextButton(
       onPressed: () async {
         await launchURL(url);
       },
@@ -70,16 +71,19 @@ class _ContactPageState extends State<ContactPage> {
         padding: EdgeInsets.all(16),
         child: loading
             ? Center(
-                child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(mainDark),
-              ))
+                child: Container(
+                  child: Lottie.asset('assets/lottie/animation.json'),
+                  width: 60,
+                  height: 60,
+                ),
+              )
             : setting == null
                 ? Center(child: Text("Veri Yok"))
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(height: s.height * 0.1),
-                      FlatButton(
+                      TextButton(
                         onPressed: () async {
                           await makePhoneCall('tel:' + setting.phone);
                         },
@@ -112,7 +116,7 @@ class _ContactPageState extends State<ContactPage> {
                           "facebook.png", setting.facebook, "Facebook"),
                       contactButton(
                           "instagram.png", setting.instagram, "Instagram"),
-                      FlatButton(
+                      TextButton(
                         onPressed: () async {
                           await launch(_emailLaunchUri.toString());
                         },
@@ -158,7 +162,7 @@ class ContactButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

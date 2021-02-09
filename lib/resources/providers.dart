@@ -32,7 +32,7 @@ class Providers {
         throw Exception("Failed to load categories");
       }
     } catch (e) {
-      List<SettingsModel>();
+      List<SettingsModel>.empty(growable: true);
     }
 
     return null;
@@ -45,13 +45,13 @@ class Providers {
 
       if (response.statusCode == 200) {
         final List<CategoryModel> categoryList =
-        categoryModelFromJson(response.body);
+            categoryModelFromJson(response.body);
         return categoryList;
       } else {
         throw Exception("Failed to load categories");
       }
     } catch (e) {
-      List<CategoryModel>();
+      List<CategoryModel>.empty(growable: true);
     }
 
     return null;
@@ -64,13 +64,13 @@ class Providers {
 
       if (response.statusCode == 200) {
         final List<ProductModel> productList =
-        productModelFromJson(response.body);
+            productModelFromJson(response.body);
         return productList;
       } else {
         throw Exception("Failed to load categories");
       }
     } catch (e) {
-      List<ProductModel>();
+      List<ProductModel>.empty(growable: true);
     }
 
     return null;
@@ -88,10 +88,9 @@ class Providers {
         throw Exception("Failed to load categories");
       }
     } catch (e) {
-      List<ImageModel>();
+      List<ImageModel>.empty(growable: true);
     }
 
     return null;
   }
-
 }

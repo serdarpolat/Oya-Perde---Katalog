@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:katalog/index.dart';
+import 'package:lottie/lottie.dart';
 
 class ServicesPage extends StatefulWidget {
   @override
@@ -34,8 +35,10 @@ class _ServicesPageState extends State<ServicesPage> {
         padding: EdgeInsets.all(16),
         child: loading
             ? Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(mainDark),
+                child: Container(
+                  child: Lottie.asset('assets/lottie/animation.json'),
+                  width: 60,
+                  height: 60,
                 ),
               )
             : setting == null

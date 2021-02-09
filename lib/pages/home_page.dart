@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:katalog/index.dart';
+import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,15 +10,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<CategoryModel> categories = List<CategoryModel>();
+  List<CategoryModel> categories = List<CategoryModel>.empty(growable: true);
   Providers providers = Providers();
   bool loading;
   Size get s => MediaQuery.of(context).size;
 
+  Map<String, String> header = {
+    "HttpHeaders.contentTypeHeader": "application/json"
+  };
+
+  Future<List<CategoryModel>> fetchCategories() async {
+    try {
+      final url =
+          "https://www.oyaperde.org/?api=categories&api_key=25d55ad283aa400af464c76d713c07ad";
+      final response = await http.get(url, headers: header);
+
+      if (response.statusCode == 200) {
+        final List<CategoryModel> categoryList =
+            categoryModelFromJson(response.body);
+        return categoryList;
+      } else {
+        throw Exception("Failed to load categories");
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return null;
+  }
+
   @override
   void initState() {
     loading = true;
-    providers.fetchCategories().then((categoryList) {
+    fetchCategories().then((categoryList) {
       setState(() {
         categories = categoryList;
         loading = false;
@@ -24,6 +50,7 @@ class _HomePageState extends State<HomePage> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,34 +61,37 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.all(24),
         child: loading
             ? Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(mainDark),
-            ))
-            : categories == null
-            ? Center(child: Text("Veri Yok"))
-            : GridView.count(
-          childAspectRatio: 3 / 3.7,
-          crossAxisSpacing: 24,
-          mainAxisSpacing: 24,
-          crossAxisCount: 2,
-          children: List.generate(
-            categories.length,
-                (index) {
-              CategoryModel cat = categories[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Products(
-                          productId: cat.id, catName: cat.title)));
-                },
-                child: CategoryItem(
-                  providers: providers,
-                  cat: cat,
+                child: Container(
+                  child: Lottie.asset('assets/lottie/animation.json'),
+                  width: 60,
+                  height: 60,
                 ),
-              );
-            },
-          ),
-        ),
+              )
+            : categories == null
+                ? Center(child: Text("Veri Yok"))
+                : GridView.count(
+                    childAspectRatio: 3 / 3.7,
+                    crossAxisSpacing: 24,
+                    mainAxisSpacing: 24,
+                    crossAxisCount: 2,
+                    children: List.generate(
+                      categories.length,
+                      (index) {
+                        CategoryModel cat = categories[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Products(
+                                    productId: cat.id, catName: cat.title)));
+                          },
+                          child: CategoryItem(
+                            providers: providers,
+                            cat: cat,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Image.asset(
@@ -79,7 +109,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
 
 class CategoryItem extends StatelessWidget {
   final Providers providers;
@@ -109,11 +138,12 @@ class CategoryItem extends StatelessWidget {
                 memCacheHeight: s.height ~/ 2,
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
                     Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(mainDark),
-                        value: downloadProgress.progress,
-                      ),
-                    ),
+                  child: Container(
+                    child: Lottie.asset('assets/lottie/animation.json'),
+                    width: 60,
+                    height: 60,
+                  ),
+                ),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
